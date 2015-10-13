@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#33c7b4</color>
+    <color name="white">#d0e7e2</color>
+    <color name="touming">#00000000</color>
+    <color name="transparent_white">#3ef5de</color>
+</resources>
