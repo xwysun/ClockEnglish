@@ -81,7 +81,7 @@ public class WordManage {
 		}
 		for (int i=0;i<words.size();i++) {
 			int[] worngIds = randomId(3, 1, size, words.get(i).getId());
-			dataBaseHelper.increaseWordCount(words.get(i).getId());
+//			dataBaseHelper.increaseWordCount(words.get(i).getId());
 			List<Word> worngs = dataBaseHelper.getWordsById(worngIds);
 			qList.add(new Question(words.get(i), worngs));
 		}
