@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,12 @@ public class QuestionActivity extends AppCompatActivity {
     LinearLayout star;
     @Bind(R.id.notebook)
     LinearLayout notebook;
+    @Bind(R.id.question)
+    LinearLayout question;
+    @Bind(R.id.mainbg)
+    LinearLayout mainbg;
+    @Bind(R.id.staricon)
+    ImageView staricon;
 
     private List<Question> Questions;
     private Question questionList;
@@ -70,9 +77,10 @@ public class QuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         ButterKnife.bind(this);
-        wordManage=new WordManage(QuestionActivity.this);
+        wordManage = new WordManage(QuestionActivity.this);
         star.setOnClickListener(new Listener());
         notebook.setOnClickListener(new Listener());
+        notebook.setVisibility(View.INVISIBLE);
         Questions = (List<Question>) getIntent().getExtras().getSerializable(QuestionsKey);
         if (Questions != null) {
             initQustions();
@@ -116,7 +124,14 @@ public class QuestionActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.star:
-                    wordManage.collectionWord(questionList.getWord().getId());
+                    if (!Questions.isEmpty()) {
+                        wordManage.collectionWord(questionList.getWord().getId());
+                        staricon.setBackgroundResource(R.drawable.stared);
+                        questionList.getWord().setIsCollection(1);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "无可收藏单词", Toast.LENGTH_SHORT).show();
+                    }
                 default:
                     break;
             }
@@ -131,7 +146,11 @@ public class QuestionActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "回答正确", Toast.LENGTH_SHORT).show();
             Questions.remove(QuestionNum);
             if (Questions.isEmpty()) {
-                finish();
+                question.setVisibility(View.GONE);
+                mainbg.setBackgroundResource(R.drawable.finish);
+                notebook.setVisibility(View.VISIBLE);
+                timer.cancel();
+                timer.purge();
             }
             if (QuestionNum < Questions.size()) {
                 initQustions();
@@ -181,13 +200,22 @@ public class QuestionActivity extends AppCompatActivity {
     private void initQustions() {
         List<TextView> randomAnswer = getrandomAnswer();
         if (Questions.isEmpty()) {
-            finish();
+            question.setVisibility(View.GONE);
+            mainbg.setBackgroundResource(R.drawable.finish);
+            notebook.setVisibility(View.VISIBLE);
+            timer.purge();
+            timer.cancel();
         } else {
             questionList = Questions.get(QuestionNum);
+            initTimer();
         }
-        initTimer();
         QueNum.setText(Questions.size() + "/5");
         title.setText(questionList.getWord().getWord());
+        if (questionList.getWord().getIsCollection() == 1) {
+            staricon.setBackgroundResource(R.drawable.stared);
+        } else {
+            staricon.setBackgroundResource(R.drawable.star);
+        }
         randomAnswer.get(0).setText(questionList.getWord().getTranslate());
         randomAnswer.get(1).setText(questionList.getWrongs().get(0).getTranslate());
         randomAnswer.get(2).setText(questionList.getWrongs().get(1).getTranslate());

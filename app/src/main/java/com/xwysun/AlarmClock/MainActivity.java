@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 
 import com.xwysun.R;
+import com.xwysun.englishwordtest.LearnActivity;
 import com.xwysun.englishwordtest.QuestionActivity;
 import com.xwysun.wordmanage.WordManage;
 import com.xwysun.wordmanage.model.Question;
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_settings:
-                        Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LearnActivity.class);
                         Bundle bundle=new Bundle();
                         Log.e("word",Questions.toString());
                         bundle.putSerializable(QuestionsKey, (Serializable) Questions);

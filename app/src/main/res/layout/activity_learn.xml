@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:background="@color/white"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.xwysun.englishwordtest.WordListActivity">
+    android:orientation="vertical"
+    android:background="@drawable/learnbg"
+    tools:context="com.xwysun.englishwordtest.LearnActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -19,7 +19,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="17dp"
             android:layout_height="28dp"
-            android:layout_marginRight="240dp"
+            android:layout_marginRight="200dp"
             android:id="@+id/back"
             android:src="@drawable/back"/>
         <LinearLayout
@@ -32,28 +32,23 @@
                 android:layout_width="25dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/book"/>
+                android:src="@drawable/learn"/>
             <TextView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="单词本"/>
+                android:text="所有单词"/>
         </LinearLayout>
-
-
-
     </LinearLayout>
-    <com.xwysun.englishwordtest.SlideCutListView
-        android:layout_marginTop="50dp"
-        android:id="@+id/slideCutListView"
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00000000"
-        android:listSelector="@android:color/transparent"
-        android:divider="@drawable/reader_item_divider"
-        android:cacheColorHint="@android:color/transparent">
-    </com.xwysun.englishwordtest.SlideCutListView>
+        android:layout_height="420dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/viewPager">
+    </android.support.v4.view.ViewPager>
 
-</RelativeLayout>
+</LinearLayout>

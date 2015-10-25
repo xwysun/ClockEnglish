@@ -67,7 +67,29 @@ public class WordManage {
 	public void cancelCollectionWord(int id){
 		dataBaseHelper.cancelCollectionWord(id);
 	}
-	
+	public List<Question> getLearnQuestion(){
+		return getLearnQuestion(DEFALUT_SIZE);
+	}
+
+
+	private List<Question> getLearnQuestion(int num) {
+		List<Question> qList = new ArrayList<>();
+		int size = dataBaseHelper.getDictionarySize();
+		List<Word> words = dataBaseHelper.getWordByCount(num);
+		while (words.size() < num) {
+			words.addAll(dataBaseHelper.getWordByCount(num - words.size()));
+		}
+		for (int i=0;i<words.size();i++) {
+			int[] worngIds = randomId(3, 1, size, words.get(i).getId());
+			dataBaseHelper.increaseWordCount(words.get(i).getId());
+			List<Word> worngs = dataBaseHelper.getWordsById(worngIds);
+			qList.add(new Question(words.get(i), worngs));
+		}
+		return qList;
+	}
+
+
+
 	private List<Question> getQuestion(int num) {
 		List<Question> qList = new ArrayList<>();
 		int size = dataBaseHelper.getDictionarySize();
