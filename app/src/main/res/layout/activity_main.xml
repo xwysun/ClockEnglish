@@ -1,26 +1,139 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
      tools:context=".MainActivity">
-    <include layout="@layout/toolbar"></include>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <!--<include layout="@layout/toolbar"></include>-->
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="210dp"
+                android:paddingTop="30dp"
+                android:background="#2ec7b5">
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:src="@drawable/alarm_back"
+                    android:id="@+id/imageView" />
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="09:45"
+                    android:textColor="#ffffff"
+                    android:textSize="28sp"
+                    android:layout_marginRight="38dp"
+                    android:layout_marginEnd="38dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_alignTop="@+id/linearLayout"
+                    android:layout_alignRight="@+id/imageView"
+                    android:layout_alignEnd="@+id/imageView" />
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="210dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:layout_alignTop="@+id/imageView"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/linearLayout">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="星期六"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp"
+                        android:id="@+id/week_of_day" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2015.10.11"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp"
+                        android:id="@+id/date" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="我要早起"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/set"
-        android:layout_width="fill_parent"
+                </LinearLayout>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="#494f4d">
+                <ImageView
+                    android:id="@+id/add_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/addalarm"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+                <ImageView
+                    android:id="@+id/collect"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/collect_back"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/add_alarm"
+                    android:layout_toStartOf="@+id/add_alarm" />
+                <ImageView
+                    android:id="@+id/learn"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/learn"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/collect"
+                    android:layout_toStartOf="@+id/collect" />
+
+            </RelativeLayout>
+        <ListView
+            android:id="@+id/alarmLV"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:dividerHeight="15dp"
+            android:divider="#0000">
+        </ListView>
+
+
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/delete_alarm"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="start"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="#000"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="52dp" />
-    <ListView
-        android:id="@+id/alarmLV"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:padding="10dp"
-        android:dividerHeight="15dp"
-        android:divider="#0000">
-    </ListView>
+        android:layout_alignParentStart="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@drawable/delete"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除闹钟"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff"/>
 
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

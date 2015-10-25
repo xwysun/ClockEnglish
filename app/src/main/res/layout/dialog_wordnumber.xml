@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_gravity="bottom">
+
+    <TextView
+        android:id="@+id/five"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="5个"
+        android:textSize="15sp"/>
+    <TextView
+        android:id="@+id/ten"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="10个"
+
+        android:textSize="15sp"
+        />
+    <TextView
+        android:id="@+id/fifteen"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="15个"
+        android:textSize="15sp"/>
+</LinearLayout>

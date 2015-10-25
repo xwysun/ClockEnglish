@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_gravity="bottom">
+
+    <TextView
+        android:id="@+id/getup"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="Get up"
+        android:textSize="15sp"/>
+    <TextView
+        android:id="@+id/goodluck"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="Good luck"
+
+        android:textSize="15sp"
+        />
+    <TextView
+        android:id="@+id/goodmorning"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="Good morning"
+        android:textSize="15sp"/>
+</LinearLayout>

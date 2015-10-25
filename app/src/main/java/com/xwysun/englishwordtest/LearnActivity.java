@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class LearnActivity extends AppCompatActivity {
 
+
     @Bind(R.id.back)
     ImageView back;
     @Bind(R.id.viewPager)
@@ -36,6 +38,7 @@ public class LearnActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
         ButterKnife.bind(this);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         LayoutInflater inflater = getLayoutInflater();
         Questions = (List<Question>) getIntent().getExtras().getSerializable(QuestionsKey);
         pager1 = inflater.inflate(R.layout.viewpager1, null);
@@ -100,6 +103,7 @@ public class LearnActivity extends AppCompatActivity {
             }
 
         };
+        viewPager.setOffscreenPageLimit(5);
         viewPager.setAdapter(pagerAdapter);
 
     }

@@ -53,14 +53,14 @@ public class QuestionActivity extends AppCompatActivity {
     TextView logtime;
     @Bind(R.id.star)
     LinearLayout star;
-    @Bind(R.id.notebook)
-    LinearLayout notebook;
     @Bind(R.id.question)
     LinearLayout question;
     @Bind(R.id.mainbg)
     LinearLayout mainbg;
     @Bind(R.id.staricon)
     ImageView staricon;
+    @Bind(R.id.exit)
+    LinearLayout exit;
 
     private List<Question> Questions;
     private Question questionList;
@@ -71,22 +71,25 @@ public class QuestionActivity extends AppCompatActivity {
     private Timer timer;
     public static final int TIMESIZE = 10;
     private int time;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         ButterKnife.bind(this);
+        toast=new Toast(this);
         wordManage = new WordManage(QuestionActivity.this);
         star.setOnClickListener(new Listener());
-        notebook.setOnClickListener(new Listener());
-        notebook.setVisibility(View.INVISIBLE);
+        exit.setOnClickListener(new Listener());
+        exit.setVisibility(View.INVISIBLE);
         Questions = (List<Question>) getIntent().getExtras().getSerializable(QuestionsKey);
         if (Questions != null) {
             initQustions();
         } else {
             Toast.makeText(getApplicationContext(), "获取数据失败", Toast.LENGTH_SHORT);
             finish();
+
         }
 
 
@@ -118,10 +121,10 @@ public class QuestionActivity extends AppCompatActivity {
                 case R.id.answerD:
                     checkAnswer(3);
                     break;
-                case R.id.notebook:
-                    Log.d("star", wordManage.getCollectionWord(0).toString());
-                    Intent intent = new Intent(QuestionActivity.this, WordListActivity.class);
-                    startActivity(intent);
+                case R.id.exit:
+                    timer=null;
+                    toast.cancel();
+                    finish();
                     break;
                 case R.id.star:
                     if (!Questions.isEmpty()) {
@@ -130,7 +133,7 @@ public class QuestionActivity extends AppCompatActivity {
                         questionList.getWord().setIsCollection(1);
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "无可收藏单词", Toast.LENGTH_SHORT).show();
+                        toast.makeText(getApplicationContext(), "无可收藏单词", Toast.LENGTH_SHORT).show();
                     }
                 default:
                     break;
@@ -142,13 +145,14 @@ public class QuestionActivity extends AppCompatActivity {
     private void checkAnswer(int ans) {
         timer.cancel();
         timer.purge();
-        if (ans == random[0]) {
-            Toast.makeText(getApplicationContext(), "回答正确", Toast.LENGTH_SHORT).show();
+        if (ans == random[0]&&!Questions.isEmpty()) {
+            toast.makeText(getApplicationContext(), "回答正确", Toast.LENGTH_SHORT).show();
             Questions.remove(QuestionNum);
             if (Questions.isEmpty()) {
                 question.setVisibility(View.GONE);
                 mainbg.setBackgroundResource(R.drawable.finish);
-                notebook.setVisibility(View.VISIBLE);
+                toast.cancel();
+                exit.setVisibility(View.VISIBLE);
                 timer.cancel();
                 timer.purge();
             }
@@ -160,7 +164,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
 
         } else {
-            Toast.makeText(getApplicationContext(), "回答错误", Toast.LENGTH_SHORT).show();
+            toast.makeText(getApplicationContext(), "回答错误", Toast.LENGTH_SHORT).show();
             QuestionNum++;
             if (QuestionNum < Questions.size()) {
                 initQustions();
@@ -202,7 +206,7 @@ public class QuestionActivity extends AppCompatActivity {
         if (Questions.isEmpty()) {
             question.setVisibility(View.GONE);
             mainbg.setBackgroundResource(R.drawable.finish);
-            notebook.setVisibility(View.VISIBLE);
+            exit.setVisibility(View.VISIBLE);
             timer.purge();
             timer.cancel();
         } else {
@@ -240,7 +244,7 @@ public class QuestionActivity extends AppCompatActivity {
                         if (time <= 0) {
                             timer.cancel();
                             timer.purge();
-                            Toast.makeText(getApplicationContext(), "回答超时", Toast.LENGTH_SHORT).show();
+                            toast.makeText(getApplicationContext(), "回答超时", Toast.LENGTH_SHORT).show();
                             QuestionNum++;
                             if (QuestionNum < Questions.size()) {
                                 initQustions();
