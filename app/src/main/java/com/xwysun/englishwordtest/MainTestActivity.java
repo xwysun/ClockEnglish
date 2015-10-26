@@ -20,6 +20,7 @@ import java.util.List;
 
 public class MainTestActivity extends AppCompatActivity {
     private TextView textView;
+
     private String test="open";
     private WordManage manage;
     private List<Question> Questions;
