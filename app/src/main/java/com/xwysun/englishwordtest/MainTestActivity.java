@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MainTestActivity extends AppCompatActivity {
     private TextView textView;
-
+    //123
     private String test="open";
     private WordManage manage;
     private List<Question> Questions;
