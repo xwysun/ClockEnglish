@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -54,6 +55,7 @@ public class WordListActivity extends AppCompatActivity implements SlideCutListV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_list);
         ButterKnife.bind(this);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         moreView = getLayoutInflater().inflate(R.layout.load, null);
         slideCutListView = (SlideCutListView) findViewById(R.id.slideCutListView);
         wordManage = new WordManage(WordListActivity.this);
@@ -118,12 +120,12 @@ public class WordListActivity extends AppCompatActivity implements SlideCutListV
 
         switch (direction) {
             case RIGHT:
-                Toast.makeText(this, "向右删除  " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
                 wordManage.cancelCollectionWord(adapter.getItem(position).getId());
                 count--;
                 break;
             case LEFT:
-                Toast.makeText(this, "向左删除  " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "删除成功  " + position, Toast.LENGTH_SHORT).show();
                 wordManage.cancelCollectionWord(adapter.getItem(position).getId());
                 count--;
                 break;

@@ -45,6 +45,8 @@
     <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <!-- 调用系统下载功能 -->
+    <!--震动-->
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <!-- 手机必要要有照相机 且能自动对焦 -->
     <uses-feature android:name="android.hardware.camera" />
@@ -95,6 +97,9 @@
             android:label="@string/title_activity_word_list"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity android:name=".englishwordtest.LearnActivity" >
+        </activity>
+
     </application>
 
 </manifest>

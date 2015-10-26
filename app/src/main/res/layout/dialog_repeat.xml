@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_gravity="bottom">
+
+    <TextView
+        android:id="@+id/onlyone"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="只响一次"
+        android:textSize="15sp"/>
+    <TextView
+        android:id="@+id/everyday"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="每天"
+
+        android:textSize="15sp"
+        />
+    <TextView
+        android:id="@+id/one2five"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="周一至周五"
+        android:textSize="15sp"/>
+</LinearLayout>

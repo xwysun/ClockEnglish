@@ -19,7 +19,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="17dp"
             android:layout_height="28dp"
-            android:layout_marginRight="200dp"
+            android:layout_marginRight="240dp"
             android:id="@+id/back"
             android:src="@drawable/back"/>
         <LinearLayout

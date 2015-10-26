@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,8 +53,14 @@ public class QuestionActivity extends AppCompatActivity {
     TextView logtime;
     @Bind(R.id.star)
     LinearLayout star;
-    @Bind(R.id.notebook)
-    LinearLayout notebook;
+    @Bind(R.id.question)
+    LinearLayout question;
+    @Bind(R.id.mainbg)
+    LinearLayout mainbg;
+    @Bind(R.id.staricon)
+    ImageView staricon;
+    @Bind(R.id.exit)
+    LinearLayout exit;
 
     private List<Question> Questions;
     private Question questionList;
@@ -64,21 +71,25 @@ public class QuestionActivity extends AppCompatActivity {
     private Timer timer;
     public static final int TIMESIZE = 10;
     private int time;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         ButterKnife.bind(this);
-        wordManage=new WordManage(QuestionActivity.this);
+        toast=new Toast(this);
+        wordManage = new WordManage(QuestionActivity.this);
         star.setOnClickListener(new Listener());
-        notebook.setOnClickListener(new Listener());
+        exit.setOnClickListener(new Listener());
+        exit.setVisibility(View.INVISIBLE);
         Questions = (List<Question>) getIntent().getExtras().getSerializable(QuestionsKey);
         if (Questions != null) {
             initQustions();
         } else {
             Toast.makeText(getApplicationContext(), "获取数据失败", Toast.LENGTH_SHORT);
             finish();
+
         }
 
 
@@ -110,13 +121,20 @@ public class QuestionActivity extends AppCompatActivity {
                 case R.id.answerD:
                     checkAnswer(3);
                     break;
-                case R.id.notebook:
-                    Log.d("star", wordManage.getCollectionWord(0).toString());
-                    Intent intent = new Intent(QuestionActivity.this, WordListActivity.class);
-                    startActivity(intent);
+                case R.id.exit:
+                    timer=null;
+                    toast.cancel();
+                    finish();
                     break;
                 case R.id.star:
-                    wordManage.collectionWord(questionList.getWord().getId());
+                    if (!Questions.isEmpty()) {
+                        wordManage.collectionWord(questionList.getWord().getId());
+                        staricon.setBackgroundResource(R.drawable.stared);
+                        questionList.getWord().setIsCollection(1);
+
+                    } else {
+                        toast.makeText(getApplicationContext(), "无可收藏单词", Toast.LENGTH_SHORT).show();
+                    }
                 default:
                     break;
             }
@@ -127,11 +145,16 @@ public class QuestionActivity extends AppCompatActivity {
     private void checkAnswer(int ans) {
         timer.cancel();
         timer.purge();
-        if (ans == random[0]) {
-            Toast.makeText(getApplicationContext(), "回答正确", Toast.LENGTH_SHORT).show();
+        if (ans == random[0]&&!Questions.isEmpty()) {
+            toast.makeText(getApplicationContext(), "回答正确", Toast.LENGTH_SHORT).show();
             Questions.remove(QuestionNum);
             if (Questions.isEmpty()) {
-                finish();
+                question.setVisibility(View.GONE);
+                mainbg.setBackgroundResource(R.drawable.finish);
+                toast.cancel();
+                exit.setVisibility(View.VISIBLE);
+                timer.cancel();
+                timer.purge();
             }
             if (QuestionNum < Questions.size()) {
                 initQustions();
@@ -141,7 +164,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
 
         } else {
-            Toast.makeText(getApplicationContext(), "回答错误", Toast.LENGTH_SHORT).show();
+            toast.makeText(getApplicationContext(), "回答错误", Toast.LENGTH_SHORT).show();
             QuestionNum++;
             if (QuestionNum < Questions.size()) {
                 initQustions();
@@ -181,13 +204,22 @@ public class QuestionActivity extends AppCompatActivity {
     private void initQustions() {
         List<TextView> randomAnswer = getrandomAnswer();
         if (Questions.isEmpty()) {
-            finish();
+            question.setVisibility(View.GONE);
+            mainbg.setBackgroundResource(R.drawable.finish);
+            exit.setVisibility(View.VISIBLE);
+            timer.purge();
+            timer.cancel();
         } else {
             questionList = Questions.get(QuestionNum);
+            initTimer();
         }
-        initTimer();
         QueNum.setText(Questions.size() + "/5");
         title.setText(questionList.getWord().getWord());
+        if (questionList.getWord().getIsCollection() == 1) {
+            staricon.setBackgroundResource(R.drawable.stared);
+        } else {
+            staricon.setBackgroundResource(R.drawable.star);
+        }
         randomAnswer.get(0).setText(questionList.getWord().getTranslate());
         randomAnswer.get(1).setText(questionList.getWrongs().get(0).getTranslate());
         randomAnswer.get(2).setText(questionList.getWrongs().get(1).getTranslate());
@@ -212,7 +244,7 @@ public class QuestionActivity extends AppCompatActivity {
                         if (time <= 0) {
                             timer.cancel();
                             timer.purge();
-                            Toast.makeText(getApplicationContext(), "回答超时", Toast.LENGTH_SHORT).show();
+                            toast.makeText(getApplicationContext(), "回答超时", Toast.LENGTH_SHORT).show();
                             QuestionNum++;
                             if (QuestionNum < Questions.size()) {
                                 initQustions();
