@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(MainActivity.this, LearnActivity.class);
                 Bundle bundle=new Bundle();
                 Log.e("word",Questions.toString());
@@ -215,6 +216,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        new Thread() {
+            @Override
+            public void run() {
+                manage = new WordManage(MainActivity.this);
+                wordhandler.sendEmptyMessage(0);
+            }
+        }.start();
     }
 
     @Override

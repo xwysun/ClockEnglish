@@ -15,10 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/w"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="22dp"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -36,9 +36,18 @@
                 android:textSize="18sp"
                 android:textColor="#ef6ea8"
                 android:text="或者"
+                android:singleLine="true"
                 android:id="@+id/traW"
                 />
         </LinearLayout>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/collectW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uncollect"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,10 +58,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/o"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="22dp"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -70,9 +79,18 @@
                 android:textSize="18sp"
                 android:textColor="#00a99e"
                 android:text="或者"
+                android:singleLine="true"
                 android:id="@+id/traO"
                 />
         </LinearLayout>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/collectO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uncollect"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,10 +101,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/r"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="22dp"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -104,9 +122,18 @@
                 android:textSize="18sp"
                 android:textColor="#f5999d"
                 android:text="或者"
+                android:singleLine="true"
                 android:id="@+id/traR"
                 />
         </LinearLayout>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/collectR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uncollect"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,10 +145,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/d0"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="22dp"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -139,9 +166,18 @@
                 android:textSize="18sp"
                 android:textColor="#0076a4"
                 android:text="或者"
+                android:singleLine="true"
                 android:id="@+id/traD"
                 />
         </LinearLayout>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/collectD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uncollect"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
     </LinearLayout>
 
 
