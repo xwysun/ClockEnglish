@@ -32,6 +32,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Questions = manage.getQuestions();
 
 
+
         Intent intent2 = new Intent(context,QuestionActivity.class);
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Log.d("data",bundle.toString());
