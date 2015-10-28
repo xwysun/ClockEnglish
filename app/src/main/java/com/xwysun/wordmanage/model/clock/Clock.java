@@ -1,8 +1,9 @@
 package com.xwysun.wordmanage.model.clock;
 
+import java.io.Serializable;
 import java.sql.Time;
 
-public class Clock {
+public class Clock implements Serializable {
 	private int id;
 	private Time time;
 	private WordNumber wordNumber;

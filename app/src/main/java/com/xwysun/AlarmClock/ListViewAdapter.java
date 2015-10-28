@@ -117,6 +117,7 @@ public class ListViewAdapter extends BaseAdapter {
                     return false;
                 }
             });
+        holder.alarm_item.setOnClickListener(new ListViewItemOnClick(context,clock));
 
 
             holder.switchButton.setOnCheckedChangeListener(onCheck);//是否开启闹钟

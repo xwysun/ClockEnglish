@@ -267,38 +267,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog=null;
-        switch (id) {
-            case DIALOG_TIME:
-                dialog=new TimePickerDialog(
-                        this,
-                        new TimePickerDialog.OnTimeSetListener(){
-                            public void onTimeSet(TimePicker timePicker, int hourOfDay,int minute) {
-                                Calendar c=Calendar.getInstance();//获取日期对象
-                                c.setTimeInMillis(System.currentTimeMillis());        //设置Calendar对象
-                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);        //设置闹钟小时数
-                                c.set(Calendar.MINUTE, minute);            //设置闹钟的分钟数
-                                c.set(Calendar.SECOND, 0);                //设置闹钟的秒数
-                                c.set(Calendar.MILLISECOND, 0);            //设置闹钟的毫秒数
-                                Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);    //创建Intent对象
-                                PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);    //创建PendingIntent
-                                //alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);        //设置闹钟
-                                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                                c.getTimeInMillis(), 10 * 1000,pi);
-                                //alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi);        //设置闹钟，当前时间就唤醒
-                                Toast.makeText(MainActivity.this, "闹钟设置成功", Toast.LENGTH_SHORT).show();//提示用户
-                            }
-                        },
-                        cal.get(Calendar.HOUR_OF_DAY),
-                        cal.get(Calendar.MINUTE),
-                        false);
 
-                break;
-        }
-        return dialog;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

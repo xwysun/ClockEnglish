@@ -70,12 +70,12 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:background="#494f4d">
                 <ImageView
                     android:id="@+id/add_alarm"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_height="30dp"
                     android:src="@drawable/addalarm"
                     android:layout_alignParentTop="true"
@@ -84,7 +84,7 @@
                 <ImageView
                     android:id="@+id/collect"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_height="30dp"
                     android:src="@drawable/collect_back"
                     android:layout_alignParentTop="true"
@@ -93,7 +93,7 @@
                 <ImageView
                     android:id="@+id/learn"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_height="30dp"
                     android:src="@drawable/learn"
                     android:layout_alignParentTop="true"
