@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -46,6 +47,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final  int changeAlarm = 2;
     private Toolbar mToolbar;
 
     private AlarmManager alarmManager;
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         Time = (TextView)findViewById(R.id.time);
         Time.setText(time);
         Weekofday  = (TextView)findViewById(R.id.week_of_day);
-        Weekofday.setText("星期"+getWeekOfDay());
+        Weekofday.setText("星期"+TimeUtils.getWeekOfDay());
         Date = (TextView)findViewById(R.id.date);
         Date.setText(date);
 
@@ -151,6 +153,13 @@ public class MainActivity extends AppCompatActivity {
          adapter = new ListViewAdapter(this,handler);
         addAlarm = (ImageView)findViewById(R.id.add_alarm);
         alarmLV.setAdapter(adapter);
+        alarmLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this,AddAlarmActivity.class);
+                startActivityForResult(intent,changeAlarm);
+            }
+        });
 //        mToolbar=(Toolbar)findViewById(R.id.toolbar);
 //        initToolbar();
         deleteAlarm.setOnClickListener(new View.OnClickListener() {
@@ -207,8 +216,8 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.action_settings:
                         Intent intent = new Intent();
-                        intent.setClass(MainActivity.this,AddAlarmActivity.class);
-                        startActivityForResult(intent,1);
+                        intent.setClass(MainActivity.this, AddAlarmActivity.class);
+                        startActivityForResult(intent, 1);
                     default:
                         break;
                 }
@@ -352,25 +361,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-    public String getWeekOfDay(){
-        final Calendar c = Calendar.getInstance();
-        String mWay = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
-        if("1".equals(mWay)){
-            mWay ="天";
-        }else if("2".equals(mWay)){
-            mWay ="一";
-        }else if("3".equals(mWay)){
-            mWay ="二";
-        }else if("4".equals(mWay)){
-            mWay ="三";
-        }else if("5".equals(mWay)){
-            mWay ="四";
-        }else if("6".equals(mWay)){
-            mWay ="五";
-        }else if("7".equals(mWay)){
-            mWay ="六";
-        }
-        return  mWay;
-    }
+
 
 }

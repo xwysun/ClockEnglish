@@ -9,7 +9,6 @@ import java.util.Calendar;
  * Created by tornado on 2015/10/28.
  */
 public class TimeUtils {
-     private static Calendar calendar = Calendar.getInstance();
 
     public static boolean exceedCurrentTime(long TimeMillis){
         long currentTime = System.currentTimeMillis();
@@ -30,6 +29,26 @@ public class TimeUtils {
             return calendar2.getTimeInMillis();
         }else
             return time.getTime();
+    }
+    public static String getWeekOfDay(){
+        final Calendar c = Calendar.getInstance();
+        String mWay = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
+        if("1".equals(mWay)){
+            mWay ="天";
+        }else if("2".equals(mWay)){
+            mWay ="一";
+        }else if("3".equals(mWay)){
+            mWay ="二";
+        }else if("4".equals(mWay)){
+            mWay ="三";
+        }else if("5".equals(mWay)){
+            mWay ="四";
+        }else if("6".equals(mWay)){
+            mWay ="五";
+        }else if("7".equals(mWay)){
+            mWay ="六";
+        }
+        return  mWay;
     }
 
 }

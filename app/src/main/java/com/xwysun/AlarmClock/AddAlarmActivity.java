@@ -36,7 +36,9 @@ import com.xwysun.wordmanage.model.clock.WordNumber;
 
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,6 +60,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
     private boolean vibrate=false;
     private TextView RemarkDetail;
     private TextView SetTime;
+
     private LinearLayout WordNumberLayout;
     private LinearLayout RepeatAlarmLayout;
     private LinearLayout MusicLayout;
@@ -77,6 +80,10 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_addalarm);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+
+
+
         sure = (Button)findViewById(R.id.sure);
         cancel = (Button)findViewById(R.id.cancel);
         checkSwitchButton = (CheckSwitchButton)findViewById(R.id.vibrate_CSBtn);
@@ -251,7 +258,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                     @Override
                     public void onClick(View v){
                         WordNumberDetail = WordNumber.FIVE;
-                        wordDetail.setText("单词个数\n    5个");
+                        wordDetail.setText("5个");
                         wordnumdialog.cancel();
                     }
                 });
@@ -259,7 +266,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                     @Override
                     public void onClick(View v) {
                         WordNumberDetail = WordNumber.TEN;
-                        wordDetail.setText("单词个数\n    10个");
+                        wordDetail.setText("10个");
                         wordnumdialog.cancel();
                     }
                 });
@@ -267,7 +274,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                     @Override
                     public void onClick(View v){
                         WordNumberDetail = WordNumber.FIFTEEN;
-                        wordDetail.setText("单词个数\n    15个");
+                        wordDetail.setText("15个");
                         wordnumdialog.cancel();
                     }
                 });
