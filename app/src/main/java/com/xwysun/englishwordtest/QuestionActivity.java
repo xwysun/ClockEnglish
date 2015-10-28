@@ -12,9 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xwysun.AlarmClock.RIngVUtils;
 import com.xwysun.R;
 import com.xwysun.wordmanage.WordManage;
 import com.xwysun.wordmanage.model.Question;
+import com.xwysun.wordmanage.model.clock.Ring;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,6 +75,10 @@ public class QuestionActivity extends AppCompatActivity {
     private int time;
     private Toast toast;
 
+    private Ring ring = Ring.GOODMORNING;
+    private boolean vibrate = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +89,13 @@ public class QuestionActivity extends AppCompatActivity {
         star.setOnClickListener(new Listener());
         exit.setOnClickListener(new Listener());
         exit.setVisibility(View.INVISIBLE);
+
+        //获取数据
         Questions = (List<Question>) getIntent().getExtras().getSerializable(QuestionsKey);
+        ring = (Ring)this.getIntent().getBundleExtra("data").get("ring");
+        vibrate = this.getIntent().getBundleExtra("data").getBoolean("vibrate");
+
+
         if (Questions != null) {
             initQustions();
         } else {
@@ -149,6 +161,8 @@ public class QuestionActivity extends AppCompatActivity {
             toast.makeText(getApplicationContext(), "回答正确", Toast.LENGTH_SHORT).show();
             Questions.remove(QuestionNum);
             if (Questions.isEmpty()) {
+                RIngVUtils.stop();
+                RIngVUtils.cancelVibrate();
                 question.setVisibility(View.GONE);
                 mainbg.setBackgroundResource(R.drawable.finish);
                 toast.cancel();

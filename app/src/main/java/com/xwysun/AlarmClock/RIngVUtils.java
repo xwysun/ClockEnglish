@@ -24,6 +24,12 @@ public class RIngVUtils  {
             mediaPlayer = MediaPlayer.create(context,R.raw.nature);
         }
         mediaPlayer.stop();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.start();
+            }
+        });
         try {
             //在播放音频资源之前，必须调用Prepare方法完成些准备工作
             mediaPlayer.prepare();

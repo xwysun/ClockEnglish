@@ -90,10 +90,13 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
 
 
         boolean createState = false;
-        if (mediaPlayer == null) {
-            mediaPlayer = createLocalMp3(ring);
-            createState = true;
+        if(ring!=null){
+            RIngVUtils.play(this,ring);
         }
+//        if (mediaPlayer == null) {
+//            mediaPlayer = createLocalMp3(ring);
+//            createState = true;
+//        }
         if(vibrate==true)
             RIngVUtils.vibrate(this);
 //        if(vibrator == null&&vibrate == true){
@@ -101,24 +104,17 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
 //        }
         //当播放完音频资源时，会触发onCompletion事件，可以在该事件中释放音频资源，
         //以便其他应用程序可以使用该资源:
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();//释放音频资源
-                //  setTitle("资源已经被释放了");
-                mediaPlayer = null;
-            }
-        });
-        try {
-            //在播放音频资源之前，必须调用Prepare方法完成些准备工作
-            if (createState) mediaPlayer.prepare();
-            //开始播放音频
-            mediaPlayer.start();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+//        try {
+//            //在播放音频资源之前，必须调用Prepare方法完成些准备工作
+//            if (createState) mediaPlayer.prepare();
+//            //开始播放音频
+//            mediaPlayer.start();
+//        } catch (IllegalStateException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         new Thread() {
             @Override
             public void run() {
@@ -168,11 +164,6 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();//停止播放
-            mediaPlayer.release();//释放资源
-            mediaPlayer = null;
-        }
-        RIngVUtils.cancelVibrate();
+
     }
 }
