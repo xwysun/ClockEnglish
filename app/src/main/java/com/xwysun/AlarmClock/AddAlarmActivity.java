@@ -336,7 +336,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
 
                 final Window window4 = remarkdialog.getWindow();
                 window4.setContentView(R.layout.dialog_remark);
-            //    window4.setGravity(Gravity.BOTTOM);  //此处可以设置dialog显示的位置
+                window4.setGravity(Gravity.BOTTOM);  //此处可以设置dialog显示的位置
                 window4.setWindowAnimations(R.style.dialog);  //添加动画
                 remarkdialog.show();
                 Button CancelRemark = (Button)window4.findViewById(R.id.cancel_remark);

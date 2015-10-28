@@ -4,4 +4,5 @@
     <color name="white">#d0e7e2</color>
     <color name="touming">#00000000</color>
     <color name="transparent_white">#3ef5de</color>
+    <color name="background_repeat">#47ccbc</color>
 </resources>

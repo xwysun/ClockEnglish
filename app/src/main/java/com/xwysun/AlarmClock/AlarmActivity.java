@@ -94,9 +94,11 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
             mediaPlayer = createLocalMp3(ring);
             createState = true;
         }
-        if(vibrator == null&&vibrate == true){
-            vibrate();
-        }
+        if(vibrate==true)
+            RIngVUtils.vibrate(this);
+//        if(vibrator == null&&vibrate == true){
+//            vibrate();
+//        }
         //当播放完音频资源时，会触发onCompletion事件，可以在该事件中释放音频资源，
         //以便其他应用程序可以使用该资源:
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -125,14 +127,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
             }
         }.start();
     }
-    public void vibrate(){
-        /*
-         * 想设置震动大小可以通过改变pattern来设定，如果开启时间太短，震动效果可能感觉不到
-         * */
-        vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-        long [] pattern = {100,500,100,500};   // 停止 开启 停止 开启
-        vibrator.vibrate(pattern,2);           //重复两次上面的pattern 如果只想震动一次，index设为-1
-    }
+
 
     public MediaPlayer createLocalMp3(Ring ring) {
         /**
@@ -166,7 +161,8 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
                 }
                 break;
         }
-        return super.onKeyDown(keyCode,event);
+      //  return super.onKeyDown(keyCode,event);
+        return false;
     }
 
     @Override
@@ -177,8 +173,6 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
             mediaPlayer.release();//释放资源
             mediaPlayer = null;
         }
-        if (vibrator!=null){
-            vibrator.cancel();
-        }
+        RIngVUtils.cancelVibrate();
     }
 }

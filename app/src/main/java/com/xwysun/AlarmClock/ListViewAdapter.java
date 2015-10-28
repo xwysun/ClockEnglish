@@ -119,7 +119,7 @@ public class ListViewAdapter extends BaseAdapter {
             });
 
 
-            holder.switchButton.setOnCheckedChangeListener(onCheck);
+            holder.switchButton.setOnCheckedChangeListener(onCheck);//是否开启闹钟
 
             holder.deleteCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -195,11 +195,11 @@ public class ListViewAdapter extends BaseAdapter {
                     PendingIntent pi = PendingIntent.getBroadcast(context,position,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                     if (clockx.getRepeat() == Repeat.ONLY_ONE){
-                        alarmManager.set(AlarmManager.RTC_WAKEUP, clockx.getTime().getTime(), pi);        //设置闹钟
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, TimeUtils.changeTime(clockx.getTime()), pi);        //设置闹钟
                     }else if (clockx.getRepeat() == Repeat.EVERY_DAY) {
-                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, clockx.getTime().getTime(), 10 * 1000, pi);
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,TimeUtils.changeTime(clockx.getTime()), 10 * 1000, pi);
                     }else if(clockx.getRepeat() == Repeat.MON2FIR){
-                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, clockx.getTime().getTime(), 10 * 1000, pi);
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, TimeUtils.changeTime(clockx.getTime()), 10 * 1000, pi);
                     }
 
                 } else {
