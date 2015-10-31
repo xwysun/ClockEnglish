@@ -24,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -47,7 +46,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final  int changeAlarm = 2;
     private Toolbar mToolbar;
 
     private AlarmManager alarmManager;
@@ -144,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         Time = (TextView)findViewById(R.id.time);
         Time.setText(time);
         Weekofday  = (TextView)findViewById(R.id.week_of_day);
-        Weekofday.setText("星期"+TimeUtils.getWeekOfDay());
+        Weekofday.setText("星期"+getWeekOfDay());
         Date = (TextView)findViewById(R.id.date);
         Date.setText(date);
 
@@ -153,13 +151,6 @@ public class MainActivity extends AppCompatActivity {
          adapter = new ListViewAdapter(this,handler);
         addAlarm = (ImageView)findViewById(R.id.add_alarm);
         alarmLV.setAdapter(adapter);
-        alarmLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this,AddAlarmActivity.class);
-                startActivityForResult(intent,changeAlarm);
-            }
-        });
 //        mToolbar=(Toolbar)findViewById(R.id.toolbar);
 //        initToolbar();
         deleteAlarm.setOnClickListener(new View.OnClickListener() {
@@ -204,28 +195,28 @@ public class MainActivity extends AppCompatActivity {
 //        am.setRepeating(AlarmManager.RTC_WAKEUP,
 //                calendar.getTimeInMillis(), 10 * 1000, sender);
     }
-    private void initToolbar(){
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setLogo(R.drawable.app);
-        mToolbar.setTitle("单词闹钟");// 标题的文字需在setSupportActionBar之前，不然会无效
-        mToolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(mToolbar);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_settings:
-                        Intent intent = new Intent();
-                        intent.setClass(MainActivity.this, AddAlarmActivity.class);
-                        startActivityForResult(intent, 1);
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-
-    }
+//    private void initToolbar(){
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        mToolbar.setLogo(R.drawable.app);
+//        mToolbar.setTitle("单词闹钟");// 标题的文字需在setSupportActionBar之前，不然会无效
+//        mToolbar.setTitleTextColor(Color.WHITE);
+//        setSupportActionBar(mToolbar);
+//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.action_settings:
+//                        Intent intent = new Intent();
+//                        intent.setClass(MainActivity.this,AddAlarmActivity.class);
+//                        startActivityForResult(intent,1);
+//                    default:
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+//
+//    }
 
     @Override
     protected void onRestart() {
@@ -267,7 +258,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Dialog dialog=null;
+        switch (id) {
+            case DIALOG_TIME:
+                dialog=new TimePickerDialog(
+                        this,
+                        new TimePickerDialog.OnTimeSetListener(){
+                            public void onTimeSet(TimePicker timePicker, int hourOfDay,int minute) {
+                                Calendar c=Calendar.getInstance();//获取日期对象
+                                c.setTimeInMillis(System.currentTimeMillis());        //设置Calendar对象
+                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);        //设置闹钟小时数
+                                c.set(Calendar.MINUTE, minute);            //设置闹钟的分钟数
+                                c.set(Calendar.SECOND, 0);                //设置闹钟的秒数
+                                c.set(Calendar.MILLISECOND, 0);            //设置闹钟的毫秒数
+                                Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);    //创建Intent对象
+                                PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);    //创建PendingIntent
+                                //alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);        //设置闹钟
+                                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                                c.getTimeInMillis(), 10 * 1000,pi);
+                                //alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi);        //设置闹钟，当前时间就唤醒
+                                Toast.makeText(MainActivity.this, "闹钟设置成功", Toast.LENGTH_SHORT).show();//提示用户
+                            }
+                        },
+                        cal.get(Calendar.HOUR_OF_DAY),
+                        cal.get(Calendar.MINUTE),
+                        false);
 
+                break;
+        }
+        return dialog;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -330,6 +352,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
+    public String getWeekOfDay(){
+        final Calendar c = Calendar.getInstance();
+        String mWay = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
+        if("1".equals(mWay)){
+            mWay ="天";
+        }else if("2".equals(mWay)){
+            mWay ="一";
+        }else if("3".equals(mWay)){
+            mWay ="二";
+        }else if("4".equals(mWay)){
+            mWay ="三";
+        }else if("5".equals(mWay)){
+            mWay ="四";
+        }else if("6".equals(mWay)){
+            mWay ="五";
+        }else if("7".equals(mWay)){
+            mWay ="六";
+        }
+        return  mWay;
+    }
 
 }

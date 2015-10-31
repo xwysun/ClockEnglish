@@ -1,7 +1,5 @@
 package com.xwysun.englishwordtest;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -123,7 +121,7 @@ public class LearnActivity extends AppCompatActivity {
                 collectO.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        wordManage.collectionWord(Questions.get(position).getWord().getId());
+                        wordManage.collectionWord(Questions.get(position).getWrongs().get(0).getId());
                         collectO.setBackgroundResource(R.drawable.collected);
                         Questions.get(position).getWrongs().get(0).setIsCollection(1);
                     }
@@ -131,7 +129,7 @@ public class LearnActivity extends AppCompatActivity {
                 collectR.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        wordManage.collectionWord(Questions.get(position).getWord().getId());
+                        wordManage.collectionWord(Questions.get(position).getWrongs().get(1).getId());
                         collectR.setBackgroundResource(R.drawable.collected);
                         Questions.get(position).getWrongs().get(1).setIsCollection(1);
                     }
@@ -139,7 +137,7 @@ public class LearnActivity extends AppCompatActivity {
                 collectD.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        wordManage.collectionWord(Questions.get(position).getWord().getId());
+                        wordManage.collectionWord(Questions.get(position).getWrongs().get(2).getId());
                         collectD.setBackgroundResource(R.drawable.collected);
                         Questions.get(position).getWrongs().get(2).setIsCollection(1);
                     }
