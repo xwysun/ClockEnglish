@@ -50,8 +50,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Intent intent2 = new Intent(context,AlarmActivity.class);
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Log.d("data",bundle.toString());
-        bundle.putSerializable(QuestionsKey, (Serializable) Questions);
+//        Log.d("data",bundle.toString());
+//        bundle.putSerializable(QuestionsKey, (Serializable) Questions);
         intent2.putExtra("data", bundle);
         context.startActivity(intent2);
     }

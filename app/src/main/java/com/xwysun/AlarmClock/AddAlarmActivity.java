@@ -72,10 +72,19 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
     private WordNumber WordNumberDetail = WordNumber.FIVE;
     private Ring RingD = Ring.GOODMORNING;
     private String RemarkD = "时间到了";
+
+
+    private boolean isset =  false;
+    private  Clock dataclock = null;
+    private boolean switchbuttonflag = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        try {
+            dataclock  =(Clock)this.getIntent().getBundleExtra("data").getSerializable("clock");
+        }catch (NullPointerException e){
+            dataclock = null;
+        }
 
         setContentView(R.layout.activity_addalarm);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
@@ -109,13 +118,27 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
         checkSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    vibrate =true;
-                }else {
-                    vibrate = false;
+                if(switchbuttonflag) {
+                    if (isChecked) {
+                        vibrate = true;
+                    } else {
+                        vibrate = false;
+                    }
                 }
             }
         });
+
+        if(dataclock !=null){
+            Log.d("dataclock",dataclock.toString());
+            isset = true ;
+            if(dataclock.getVibration()==1||dataclock.getVibration()==10){
+                switchbuttonflag = false;
+                checkSwitchButton.setChecked(true);
+                switchbuttonflag = true;
+            }
+          repeatAlarmDetail.setText(dataclock.getRepeat().toString());
+           wordDetail.setText(dataclock.getWordNumber().toString());
+        }
     }
     @Override
     public void onClick(View v){
@@ -124,6 +147,13 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("wordnumber", WordNumberDetail);
                 bundle.putBoolean("vibrate", vibrate);
+                if(isset&&dataclock!=null) {
+                    if (dataclock.getVibration() == 10 || dataclock.getVibration() == 20) {
+                        bundle.putBoolean("isopen",false);
+                    } else {
+                        bundle.putBoolean("isopen",true);
+                    }
+                }
                 if(RemarkD !=null)
                     bundle.putString("remark",RemarkD);
                 bundle.putSerializable("ring", RingD);
@@ -157,20 +187,33 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                 clock.setTime(time);
                 clock.setRing(RingD);
                 clock.setRepeat(RepeatDetail);
-                if(vibrate)
-                    clock.setVibration(1);//是否振动,1为振动，2为不震动
-                else clock.setVibration(2);
 
-                clockManage.addClock(clock);
-//                clockManage.setClock(clock);
-//                Clock c=clockManage.getClockById(1);
-//                c.setWordNumber(WordNumber.of(10));
-//                c.setRepeat(Repeat.of("只响一次"));
-//                c.setRemark("123");
-//                clockManage.setClock(c);
-                Toast.makeText(AddAlarmActivity.this, "闹钟设置成功", Toast.LENGTH_SHORT).show();//提示用户
-                setResult(RESULT_OK, intent);
-                AddAlarmActivity.this.finish();
+                if(isset&&dataclock!=null) {
+                    if(dataclock.getVibration()==10||dataclock.getVibration()==20){
+                        if(vibrate)
+                            clock.setVibration(10);//是否振动,1为振动，2为不震动
+                        else clock.setVibration(20);
+                    }else {
+                        if(vibrate)
+                            clock.setVibration(1);//是否振动,1为振动，2为不震动
+                        else clock.setVibration(2);
+                    }
+
+                    clock.setId(dataclock.getId());
+                    clockManage.setClock(clock);
+                    Log.d("modifyclock",clock.toString());
+                    Toast.makeText(AddAlarmActivity.this, "闹钟修改成功", Toast.LENGTH_SHORT).show();//提示用户
+                    setResult(RESULT_OK, intent);
+                    AddAlarmActivity.this.finish();
+                }else {
+                    if(vibrate)
+                        clock.setVibration(1);//是否振动,1为振动，2为不震动
+                    else clock.setVibration(2);
+                    clockManage.addClock(clock);
+                    Toast.makeText(AddAlarmActivity.this, "闹钟设置成功", Toast.LENGTH_SHORT).show();//提示用户
+                    setResult(RESULT_OK, intent);
+                    AddAlarmActivity.this.finish();
+                }
                 break;
             case R.id.cancel:
                 setResult(RESULT_CANCELED);
@@ -308,7 +351,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                     @Override
                     public void onClick(View v) {
                         RingD = Ring.GOODLUCK;
-                        RingDetail.setText("good luck");
+                        RingDetail.setText("滴答");
                         ringdialog.cancel();
                     }
                 });
@@ -336,11 +379,6 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                 WindowManager.LayoutParams lp4 = remarkdialog.getWindow().getAttributes();
                 lp4.width = (int)(display4.getWidth()); //设置宽度
                 remarkdialog.getWindow().setAttributes(lp4);
-
-
-
-
-
                 final Window window4 = remarkdialog.getWindow();
                 window4.setContentView(R.layout.dialog_remark);
                 window4.setGravity(Gravity.BOTTOM);  //此处可以设置dialog显示的位置

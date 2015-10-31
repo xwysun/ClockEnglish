@@ -37,11 +37,10 @@ public class ListViewAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Handler handler;
     private Activity activity;
+    public static Clock clock = null;
     private static ClockManage clockManage;
     private static Context context;
-    private int delete[] = new int[100];
     Message msg2 = new Message();
-    int i=0;
     public static int TYPE  = 1;
     public ListViewAdapter(Context context,Handler handler,Activity activity) {
         this.inflater = LayoutInflater.from(context);
@@ -75,7 +74,7 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, final ViewGroup viewGroup) {
 
         ViewHolder holder = null;
-        Clock clock= null;
+
         OnCheck onCheck= null;
             if (convertView == null) {
                 holder = new ViewHolder();
@@ -117,10 +116,11 @@ public class ListViewAdapter extends BaseAdapter {
                 @Override
                 public boolean onLongClick(View v) {
                     setItemViewType(0);
+                    MainActivity.deleteclockList.clear();
                     return false;
                 }
             });
-        holder.alarm_item.setOnClickListener(new ListViewItemOnClick(context,clock,activity));
+        holder.alarm_item.setOnClickListener(new ListViewItemOnClick(context,clock,activity,position));
 
 
             holder.switchButton.setOnCheckedChangeListener(onCheck);//是否开启闹钟
@@ -128,22 +128,12 @@ public class ListViewAdapter extends BaseAdapter {
             holder.deleteCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    // TODO Auto-generated method stub
+                    //
                     if (isChecked) {
-                        Log.d("TAG", position + 1 + "");
-                        delete[i++] = position + 1;
-                        delete[i] = 0;
+                        MainActivity.deleteclockList.add(clock);
                     } else {
-                        for (int j = 0; ; j++) {
-                            if (delete[j] == (position + 1)) {
-                                delete[j] = -1;
-                                break;
-                            }
-                        }
+                        MainActivity.deleteclockList.remove(clock);
                     }
-                    msg2.what = 2;
-                    msg2.obj = delete;
-                    handler.sendMessage(msg2);
                 }
             });
 

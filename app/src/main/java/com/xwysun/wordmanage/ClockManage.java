@@ -51,4 +51,10 @@ public class ClockManage {
 	public void deleteClock(int id){
 		dataBaseHelper.deleteClock(id);
 	}
+	public void deleteClocks(List<Clock> clockList){
+		int i ;
+		for(i=0;i<clockList.size();i++){
+			deleteClock(clockList.get(i).getId());
+		}
+	}
 }

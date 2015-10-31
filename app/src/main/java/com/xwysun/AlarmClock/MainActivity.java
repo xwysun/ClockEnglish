@@ -38,14 +38,17 @@ import com.xwysun.englishwordtest.WordListActivity;
 import com.xwysun.wordmanage.ClockManage;
 import com.xwysun.wordmanage.WordManage;
 import com.xwysun.wordmanage.model.Question;
+import com.xwysun.wordmanage.model.clock.Clock;
 import com.xwysun.wordmanage.model.clock.Repeat;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static List<Clock> deleteclockList = new ArrayList();
     private Toolbar mToolbar;
 
     private AlarmManager alarmManager;
@@ -61,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     Calendar cal=Calendar.getInstance();
     private int State = 1;
     final int DIALOG_TIME = 0;
-    int delete[] = {0};
     ClockManage clockManage;
     private Handler handler = new Handler(){
         @Override
@@ -70,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
             if (msg.what==1) {
                 deleteAlarm.setVisibility(View.VISIBLE);
                 State = 0;//删除闹钟界面
-            }else if(msg.what==2){
-                delete = (int[])msg.obj;
             }else if (msg.what == 3){
 //                Time.setText(time);
 //                Date.setText(date);
@@ -157,14 +157,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clockManage = new ClockManage(MainActivity.this);
-                for(int i = 0;;i++){
-                    Log.d("TAG",delete[i]+"");
-                    if(delete[i]==0){
-                        break;
-                    }else if(delete[i]!=-1){
-                        clockManage.deleteClock(delete[i]);
-                    }
-                }
+
+                    clockManage.deleteClocks(deleteclockList);
+
                 adapter.TYPE = 1;
                 adapter.refleshData();
                 adapter.notifyDataSetChanged();
@@ -256,40 +251,36 @@ public class MainActivity extends AppCompatActivity {
             adapter.refleshData();
             adapter.notifyDataSetChanged();
         }
-    }
+        if(requestCode==2&&resultCode == RESULT_OK){
+            boolean isopen = (boolean)data.getBundleExtra("data").getSerializable("isopen");
+            if(isopen) {//是否开启
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis((long) data.getBundleExtra("data").getSerializable("time"));
+                Repeat RepeatDetail = (Repeat) data.getBundleExtra("data").getSerializable("repeat");
 
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog=null;
-        switch (id) {
-            case DIALOG_TIME:
-                dialog=new TimePickerDialog(
-                        this,
-                        new TimePickerDialog.OnTimeSetListener(){
-                            public void onTimeSet(TimePicker timePicker, int hourOfDay,int minute) {
-                                Calendar c=Calendar.getInstance();//获取日期对象
-                                c.setTimeInMillis(System.currentTimeMillis());        //设置Calendar对象
-                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);        //设置闹钟小时数
-                                c.set(Calendar.MINUTE, minute);            //设置闹钟的分钟数
-                                c.set(Calendar.SECOND, 0);                //设置闹钟的秒数
-                                c.set(Calendar.MILLISECOND, 0);            //设置闹钟的毫秒数
-                                Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);    //创建Intent对象
-                                PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);    //创建PendingIntent
-                                //alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);        //设置闹钟
-                                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                                c.getTimeInMillis(), 10 * 1000,pi);
-                                //alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi);        //设置闹钟，当前时间就唤醒
-                                Toast.makeText(MainActivity.this, "闹钟设置成功", Toast.LENGTH_SHORT).show();//提示用户
-                            }
-                        },
-                        cal.get(Calendar.HOUR_OF_DAY),
-                        cal.get(Calendar.MINUTE),
-                        false);
-
-                break;
+                Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+                intent.putExtras(data.getBundleExtra("data"));
+                if (clockManage == null) {
+                    clockManage = new ClockManage(MainActivity.this);
+                }
+                PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this,
+                        clockManage.getClocks().size(), intent, PendingIntent.FLAG_UPDATE_CURRENT);    //创建PendingIntent
+                if (RepeatDetail == Repeat.ONLY_ONE) {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);        //设置闹钟
+                } else if (RepeatDetail == Repeat.EVERY_DAY) {
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 10 * 1000, pi);
+                } else if (RepeatDetail == Repeat.MON2FIR) {
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 10 * 1000, pi);
+                }
+            }
+            //刷新界面
+            adapter.TYPE = 1;
+            adapter.refleshData();
+            adapter.notifyDataSetChanged();
         }
-        return dialog;
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

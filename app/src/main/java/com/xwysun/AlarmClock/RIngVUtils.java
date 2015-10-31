@@ -19,11 +19,12 @@ public class RIngVUtils  {
         if(ring == Ring.GOODMORNING)
             mediaPlayer = MediaPlayer.create(context,R.raw.nature);
         else if(ring == Ring.GETUP){
-            mediaPlayer = MediaPlayer.create(context,R.raw.nature);
+            mediaPlayer = MediaPlayer.create(context,R.raw.cryshoulder);
         }else if(ring == Ring.GOODLUCK){
-            mediaPlayer = MediaPlayer.create(context,R.raw.nature);
+            mediaPlayer = MediaPlayer.create(context,R.raw.deda);
         }
         mediaPlayer.stop();
+     //   mediaPlayer.set
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
