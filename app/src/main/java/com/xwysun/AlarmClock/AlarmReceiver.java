@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,16 +24,29 @@ public class AlarmReceiver extends BroadcastReceiver {
     private List<Question> Questions;
     private WordManage manage;
     public static final String QuestionsKey = "questions";
+    private Handler wordhandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            try {
+                Questions=manage.getQuestions();
+                Log.d("QUE",Questions.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
 //获取数据
         Bundle bundle = intent.getExtras();
 //初始化单词
-        manage = new WordManage(context);
-        manage.setWordSize(Integer.parseInt(bundle.getSerializable("wordnumber").toString()));
-        Questions = manage.getQuestions();
-
-
+        new Thread() {
+            @Override
+            public void run() {
+                manage = new WordManage(context);
+                wordhandler.sendEmptyMessage(0);
+            }
+        }.start();
 
         Intent intent2 = new Intent(context,QuestionActivity.class);
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -195,28 +195,28 @@ public class MainActivity extends AppCompatActivity {
 //        am.setRepeating(AlarmManager.RTC_WAKEUP,
 //                calendar.getTimeInMillis(), 10 * 1000, sender);
     }
-    private void initToolbar(){
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setLogo(R.drawable.app);
-        mToolbar.setTitle("单词闹钟");// 标题的文字需在setSupportActionBar之前，不然会无效
-        mToolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(mToolbar);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_settings:
-                        Intent intent = new Intent();
-                        intent.setClass(MainActivity.this,AddAlarmActivity.class);
-                        startActivityForResult(intent,1);
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-
-    }
+//    private void initToolbar(){
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        mToolbar.setLogo(R.drawable.app);
+//        mToolbar.setTitle("单词闹钟");// 标题的文字需在setSupportActionBar之前，不然会无效
+//        mToolbar.setTitleTextColor(Color.WHITE);
+//        setSupportActionBar(mToolbar);
+//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.action_settings:
+//                        Intent intent = new Intent();
+//                        intent.setClass(MainActivity.this,AddAlarmActivity.class);
+//                        startActivityForResult(intent,1);
+//                    default:
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+//
+//    }
 
     @Override
     protected void onRestart() {

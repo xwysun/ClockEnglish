@@ -6,13 +6,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#797176"
+        android:background="#77797176"
         android:orientation="vertical">
         <TextView
             android:id="@+id/word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1bc2af"
+            android:textColor="#42f2d3"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"

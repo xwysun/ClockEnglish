@@ -94,6 +94,10 @@ public class QuestionActivity extends AppCompatActivity {
         Questions = (List<Question>) getIntent().getExtras().getSerializable(QuestionsKey);
         ring = (Ring)this.getIntent().getBundleExtra("data").get("ring");
         vibrate = this.getIntent().getBundleExtra("data").getBoolean("vibrate");
+        RIngVUtils.play(this,ring);
+        if(vibrate){
+            RIngVUtils.vibrate(this);
+        }
 
 
         if (Questions != null) {
