@@ -17,6 +17,7 @@ import com.xwysun.R;
 import com.xwysun.wordmanage.WordManage;
 import com.xwysun.wordmanage.model.Question;
 import com.xwysun.wordmanage.model.clock.Ring;
+import com.xwysun.wordmanage.model.clock.WordNumber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,6 +78,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private Ring ring = Ring.GOODMORNING;
     private boolean vibrate = false;
+    private WordNumber wordNumber = WordNumber.FIVE;
 
 
     @Override
@@ -94,7 +96,13 @@ public class QuestionActivity extends AppCompatActivity {
         Questions = (List<Question>) getIntent().getExtras().getSerializable(QuestionsKey);
         ring = (Ring)this.getIntent().getBundleExtra("data").get("ring");
         vibrate = this.getIntent().getBundleExtra("data").getBoolean("vibrate");
-
+        wordNumber = (WordNumber)this.getIntent().getBundleExtra("data").getSerializable("wordnumber");
+        if(ring !=null){
+            RIngVUtils.play(this,ring);
+        }
+        if(vibrate){
+            RIngVUtils.vibrate(this);
+        }
 
         if (Questions != null) {
             initQustions();
@@ -158,6 +166,8 @@ public class QuestionActivity extends AppCompatActivity {
         timer.cancel();
         timer.purge();
         if (ans == random[0]&&!Questions.isEmpty()) {
+            RIngVUtils.stop();
+            RIngVUtils.cancelVibrate();
             toast.makeText(getApplicationContext(), "回答正确", Toast.LENGTH_SHORT).show();
             Questions.remove(QuestionNum);
             if (Questions.isEmpty()) {

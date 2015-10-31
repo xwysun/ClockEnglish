@@ -12,7 +12,7 @@
         android:layout_height="60dp"
         android:gravity="center"
         android:background="@drawable/selector_background"
-        android:text="Get up"
+        android:text="cry on my shoulder"
         android:textSize="15sp"/>
     <TextView
         android:id="@+id/goodluck"
@@ -21,7 +21,6 @@
         android:gravity="center"
         android:background="@drawable/selector_background"
         android:text="Good luck"
-
         android:textSize="15sp"
         />
     <TextView

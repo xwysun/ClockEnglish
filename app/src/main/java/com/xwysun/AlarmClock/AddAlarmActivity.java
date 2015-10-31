@@ -300,7 +300,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                     @Override
                     public void onClick(View v){
                         RingD = Ring.GETUP;
-                        RingDetail.setText("get up");
+                        RingDetail.setText("cry on my shoulder");
                         ringdialog.cancel();
                     }
                 });

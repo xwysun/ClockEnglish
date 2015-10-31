@@ -19,7 +19,7 @@ public class RIngVUtils  {
         if(ring == Ring.GOODMORNING)
             mediaPlayer = MediaPlayer.create(context,R.raw.nature);
         else if(ring == Ring.GETUP){
-            mediaPlayer = MediaPlayer.create(context,R.raw.nature);
+            mediaPlayer = MediaPlayer.create(context,R.raw.cryonmyshoulder);
         }else if(ring == Ring.GOODLUCK){
             mediaPlayer = MediaPlayer.create(context,R.raw.nature);
         }
@@ -53,9 +53,9 @@ public class RIngVUtils  {
         }
     }
     public static void vibrate(Context context){
-         /*
+        /**
          * 想设置震动大小可以通过改变pattern来设定，如果开启时间太短，震动效果可能感觉不到
-         * */
+         */
         if(vibrator==null)
             vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
         long [] pattern = {100,500,100,500};   // 停止 开启 停止 开启

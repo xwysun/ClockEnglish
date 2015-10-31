@@ -41,7 +41,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:background="@drawable/addalarm_back"
+        android:background="#ebeed6"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
@@ -52,15 +52,19 @@
         android:background="#c087bf"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_gravity="center"
+            android:src="@drawable/vibrate_png"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
             android:layout_weight="9"
+            android:layout_gravity="center"
             android:paddingLeft="50dp"
             android:text="振动"
             android:textColor="#ffffff"
@@ -70,8 +74,8 @@
             android:id="@+id/vibrate_CSBtn"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="5"
-            android:layout_marginBottom="5dp"/>
+            android:layout_gravity="center"
+            android:layout_weight="5" />
 
     </LinearLayout>
     <LinearLayout
@@ -84,7 +88,8 @@
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="fill_parent"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
             android:background="#f9aac0"
             android:orientation="vertical">
             <ImageView
@@ -95,7 +100,7 @@
                 android:src="@drawable/ring_png"/>
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:padding="10dp"
                 android:gravity="center_horizontal"
                 android:text="铃声"
@@ -104,7 +109,6 @@
             <TextView
                 android:id="@+id/ring_detail"
                 android:layout_width="fill_parent"
-                android:padding="10dp"
                 android:gravity="center_horizontal"
                 android:layout_height="40dp"
                 android:text="good moning"
@@ -117,14 +121,23 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="fill_parent"
-                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:background="#76beb3"
                 android:orientation="vertical">
-                <TextView
+                <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/repeat_png"
+                    />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
                     android:gravity="center_horizontal"
+                    android:padding="10dp"
                     android:text="重复"
                     android:textColor="#ffffff"
                     android:textSize="18sp"/>
@@ -135,7 +148,7 @@
                     android:gravity="center_horizontal"
                     android:text="只响一次"
                     android:textColor="#ffffff"
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -149,7 +162,7 @@
         >
 
         <LinearLayout
-            android:layout_margin="3dp"
+
             android:layout_width="0dp"
             android:layout_height="210dp"
             android:layout_weight="2"
@@ -164,14 +177,13 @@
                     android:layout_weight="1"
                     android:background="#939ae3"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
                     <LinearLayout
                         android:id="@+id/word_number"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="8"
-                        android:paddingLeft="3dp"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="fill_parent"
@@ -211,7 +223,6 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_weight="8"
-                    android:paddingLeft="3dp"
                     android:text="设置时间"
                     android:textColor="#ffffff"
                     android:textSize="18sp"/>
@@ -224,9 +235,10 @@
             android:id="@+id/remark"
 
             android:layout_width="0dp"
-            android:layout_height="210dp"
+            android:layout_height="205dp"
             android:layout_weight="3"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             android:background="#e68391"
             android:orientation="vertical">
