@@ -1,5 +1,6 @@
 package com.xwysun.AlarmClock;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,17 +16,19 @@ import java.io.Serializable;
 public class ListViewItemOnClick implements View.OnClickListener {
     private Context context;
     private Clock clock;
-    public ListViewItemOnClick(Context context,Clock clock){
+    private Activity activity;
+    public ListViewItemOnClick(Context context,Clock clock,Activity activity){
         super();
         this.context = context;
         this.clock = clock;
+        this.activity = activity;
     }
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(context,AddAlarmActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("clock", (Serializable) clock);
+        bundle.putSerializable("clock", clock);
         intent.putExtras(bundle);
-        context.startActivity(intent);
+        activity.startActivityForResult(intent,1);
     }
 }

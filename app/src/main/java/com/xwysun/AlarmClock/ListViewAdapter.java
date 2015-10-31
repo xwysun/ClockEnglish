@@ -1,5 +1,6 @@
 package com.xwysun.AlarmClock;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -35,17 +36,19 @@ public class ListViewAdapter extends BaseAdapter {
     boolean flag=false;
     private LayoutInflater inflater;
     private Handler handler;
+    private Activity activity;
     private static ClockManage clockManage;
     private static Context context;
     private int delete[] = new int[100];
     Message msg2 = new Message();
     int i=0;
     public static int TYPE  = 1;
-    public ListViewAdapter(Context context,Handler handler) {
+    public ListViewAdapter(Context context,Handler handler,Activity activity) {
         this.inflater = LayoutInflater.from(context);
         this.clockManage = new ClockManage(context);
         this.context = context;
         this.handler = handler;
+        this.activity = activity;
     }
 
     @Override
@@ -117,7 +120,7 @@ public class ListViewAdapter extends BaseAdapter {
                     return false;
                 }
             });
-        holder.alarm_item.setOnClickListener(new ListViewItemOnClick(context,clock));
+        holder.alarm_item.setOnClickListener(new ListViewItemOnClick(context,clock,activity));
 
 
             holder.switchButton.setOnCheckedChangeListener(onCheck);//是否开启闹钟

@@ -19,7 +19,7 @@ public class RIngVUtils  {
         if(ring == Ring.GOODMORNING)
             mediaPlayer = MediaPlayer.create(context,R.raw.nature);
         else if(ring == Ring.GETUP){
-            mediaPlayer = MediaPlayer.create(context,R.raw.cryonmyshoulder);
+            mediaPlayer = MediaPlayer.create(context,R.raw.nature);
         }else if(ring == Ring.GOODLUCK){
             mediaPlayer = MediaPlayer.create(context,R.raw.nature);
         }
@@ -59,7 +59,7 @@ public class RIngVUtils  {
         if(vibrator==null)
             vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
         long [] pattern = {100,500,100,500};   // 停止 开启 停止 开启
-        vibrator.vibrate(pattern,2);           //重复两次上面的pattern 如果只想震动一次，index设为-1
+        vibrator.vibrate(pattern,10);           //重复10次上面的pattern 如果只想震动一次，index设为-1
     }
     public static void cancelVibrate(){
         if(vibrator!=null)

@@ -21,7 +21,7 @@ import java.util.List;
  * Created by tornado on 2015/9/25.
  */
 public class AlarmReceiver extends BroadcastReceiver {
-    private List<Question> Questions;
+    private List<Question> Questions=null;
     private WordManage manage;
     public static final String QuestionsKey = "questions";
     private Handler wordhandler=new Handler(){
@@ -48,11 +48,11 @@ public class AlarmReceiver extends BroadcastReceiver {
             }
         }.start();
 
-        Intent intent2 = new Intent(context,QuestionActivity.class);
+        Intent intent2 = new Intent(context,AlarmActivity.class);
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Log.d("data",bundle.toString());
         bundle.putSerializable(QuestionsKey, (Serializable) Questions);
-        intent2.putExtra("data",bundle);
+        intent2.putExtra("data", bundle);
         context.startActivity(intent2);
     }
 }

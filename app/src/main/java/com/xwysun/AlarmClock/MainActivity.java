@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         alarmLV = (ListView)findViewById(R.id.alarmLV);
         deleteAlarm = (LinearLayout)findViewById(R.id.delete_alarm);
-         adapter = new ListViewAdapter(this,handler);
+         adapter = new ListViewAdapter(this,handler,MainActivity.this);
         addAlarm = (ImageView)findViewById(R.id.add_alarm);
         alarmLV.setAdapter(adapter);
 //        mToolbar=(Toolbar)findViewById(R.id.toolbar);
