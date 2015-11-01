@@ -85,8 +85,8 @@ public class ClockDataBaseHelper extends SQLiteOpenHelper{
 	}
 	
 	public void updateClock(Clock clock){
-		String sql="UPDATE clock SET word_number=?,repeat=?,ring=?,vibration=?,remark=? WHERE _id=?";
-		db.execSQL(sql, new Object[]{clock.getWordNumber().toString(),clock.getRepeat().toString(),clock.getRing().toString(),clock.getVibration(),clock.getRemark(),clock.getId()});
+		String sql="UPDATE clock SET time=?,word_number=?,repeat=?,ring=?,vibration=?,remark=? WHERE _id=?";
+		db.execSQL(sql, new Object[]{clock.getTime().getTime(),clock.getWordNumber().toString(),clock.getRepeat().toString(),clock.getRing().toString(),clock.getVibration(),clock.getRemark(),clock.getId()});
 	}
 	public void deleteClock(int id){
 		String sql="DELETE FROM clock WHERE _id=?";

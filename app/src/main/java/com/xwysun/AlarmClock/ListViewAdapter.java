@@ -184,7 +184,6 @@ public class ListViewAdapter extends BaseAdapter {
                     else bundle.putBoolean("vibrate", false);
                     bundle.putString("remark",clockx.getRemark());
                     bundle.putSerializable("ring", clockx.getRing());
-                    Log.d("clockx", clockx.toString() + "---" + clockx.getRing().toString());
                     intent.putExtras(bundle);
                     PendingIntent pi = PendingIntent.getBroadcast(context,position,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

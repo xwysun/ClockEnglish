@@ -42,6 +42,7 @@ import com.xwysun.wordmanage.model.clock.Clock;
 import com.xwysun.wordmanage.model.clock.Repeat;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
     private AlarmManager alarmManager;
-    private TextView Time;
+    private TextView Timetv;
     private TextView Weekofday;
     private TextView Date;
     private ImageView addAlarm;
@@ -139,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Time = (TextView)findViewById(R.id.time);
-        Time.setText(time);
+        Timetv = (TextView)findViewById(R.id.time);
+        Timetv.setText(time);
         Weekofday  = (TextView)findViewById(R.id.week_of_day);
         Weekofday.setText("星期"+getWeekOfDay());
         Date = (TextView)findViewById(R.id.date);
@@ -229,8 +230,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode ==1&&resultCode==RESULT_OK){
-            Calendar c = Calendar.getInstance();
-            c.setTimeInMillis((long)data.getBundleExtra("data").getSerializable("time"));
+            long  TimeInMillis= (long) data.getBundleExtra("data").getSerializable("time");
+            Time atime = new Time(TimeInMillis);
+            long realTimeInMillis = TimeUtils.changeTime(atime);
             Repeat RepeatDetail =(Repeat)data.getBundleExtra("data").getSerializable("repeat");
             Intent intent= new Intent(MainActivity.this,AlarmReceiver.class);
             intent.putExtras(data.getBundleExtra("data"));
@@ -240,11 +242,11 @@ public class MainActivity extends AppCompatActivity {
             PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this,
                     clockManage.getClocks().size(), intent,PendingIntent.FLAG_UPDATE_CURRENT);    //创建PendingIntent
             if (RepeatDetail == Repeat.ONLY_ONE){
-                alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);        //设置闹钟
+                alarmManager.set(AlarmManager.RTC_WAKEUP, realTimeInMillis, pi);        //设置闹钟
             }else if (RepeatDetail == Repeat.EVERY_DAY) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 10 * 1000, pi);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, realTimeInMillis, 10 * 1000, pi);
             }else if(RepeatDetail == Repeat.MON2FIR){
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 10 * 1000, pi);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,realTimeInMillis, 10 * 1000, pi);
             }
             //刷新界面
             adapter.TYPE = 1;
@@ -254,8 +256,9 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode==2&&resultCode == RESULT_OK){
             boolean isopen = (boolean)data.getBundleExtra("data").getSerializable("isopen");
             if(isopen) {//是否开启
-                Calendar c = Calendar.getInstance();
-                c.setTimeInMillis((long) data.getBundleExtra("data").getSerializable("time"));
+                long  TimeInMillis= (long) data.getBundleExtra("data").getSerializable("time");
+                Time atime = new Time(TimeInMillis);
+                long realTimeInMillis = TimeUtils.changeTime(atime);
                 Repeat RepeatDetail = (Repeat) data.getBundleExtra("data").getSerializable("repeat");
 
                 Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
@@ -266,11 +269,11 @@ public class MainActivity extends AppCompatActivity {
                 PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this,
                         clockManage.getClocks().size(), intent, PendingIntent.FLAG_UPDATE_CURRENT);    //创建PendingIntent
                 if (RepeatDetail == Repeat.ONLY_ONE) {
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);        //设置闹钟
+                    alarmManager.set(AlarmManager.RTC_WAKEUP,realTimeInMillis, pi);        //设置闹钟
                 } else if (RepeatDetail == Repeat.EVERY_DAY) {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 10 * 1000, pi);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,realTimeInMillis, 10 * 1000, pi);
                 } else if (RepeatDetail == Repeat.MON2FIR) {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 10 * 1000, pi);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, realTimeInMillis, 10 * 1000, pi);
                 }
             }
             //刷新界面

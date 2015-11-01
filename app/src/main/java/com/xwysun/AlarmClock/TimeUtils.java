@@ -12,21 +12,27 @@ public class TimeUtils {
 
     public static boolean exceedCurrentTime(long TimeMillis){
         long currentTime = System.currentTimeMillis();
-        if(TimeMillis-currentTime>0)
+        if(TimeMillis>currentTime)
         return true;
         else return false;
     }
     public static long changeTime(Time time){
         boolean exceed = exceedCurrentTime(time.getTime());
-        Log.d("exceed",exceed+"");
+        long x = 24*60*60*1000;
+
         if(!exceed){
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTimeInMillis(System.currentTimeMillis());
             calendar2.set(Calendar.HOUR_OF_DAY, time.getHours());
             calendar2.set(Calendar.MINUTE,time.getMinutes());
             calendar2.set(Calendar.SECOND,0);
-            calendar2.set(Calendar.MILLISECOND,0);
-            return calendar2.getTimeInMillis();
+            calendar2.set(Calendar.MILLISECOND, 0);
+            Log.d("TimeInMillis",calendar2.getTime()+"");
+            if(!exceedCurrentTime(calendar2.getTimeInMillis()+60*1000)){
+                Log.d("exceed",exceed+"");
+                return calendar2.getTimeInMillis()+x;
+            }else
+                return calendar2.getTimeInMillis()+5*1000;
         }else
             return time.getTime();
     }

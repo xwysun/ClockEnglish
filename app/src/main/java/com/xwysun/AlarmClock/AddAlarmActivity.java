@@ -136,6 +136,13 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                 checkSwitchButton.setChecked(true);
                 switchbuttonflag = true;
             }
+
+            c.setTimeInMillis(dataclock.getTime().getTime());        //设置Calendar对象
+            c.set(Calendar.HOUR_OF_DAY, dataclock.getTime().getHours());        //设置闹钟小时数
+            c.set(Calendar.MINUTE, dataclock.getTime().getMinutes());            //设置闹钟的分钟数
+            c.set(Calendar.SECOND, 0);                //设置闹钟的秒数
+            c.set(Calendar.MILLISECOND, 0);            //设置闹钟的毫秒数
+
           repeatAlarmDetail.setText(dataclock.getRepeat().toString());
            wordDetail.setText(dataclock.getWordNumber().toString());
         }
@@ -159,6 +166,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                 bundle.putSerializable("ring", RingD);
                 bundle.putSerializable("repeat",RepeatDetail);
                 bundle.putSerializable("time",c.getTimeInMillis());
+
                 Intent intent = new Intent();    //创建Intent对象
                 intent.putExtra("data", bundle);
 
@@ -177,7 +185,7 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                 //alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi);        //设置闹钟，当前时间就唤醒
 
                 Time time = new Time(c.getTimeInMillis());
-                Log.d("sql time",time.toString());
+                Log.d("sql time",time.toString()+"---hour="+time.getHours());
                 Clock clock = new Clock();
                 clock.setWordNumber(WordNumberDetail);
                 if(RemarkD != null) {
@@ -187,7 +195,6 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                 clock.setTime(time);
                 clock.setRing(RingD);
                 clock.setRepeat(RepeatDetail);
-
                 if(isset&&dataclock!=null) {
                     if(dataclock.getVibration()==10||dataclock.getVibration()==20){
                         if(vibrate)
@@ -198,10 +205,9 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                             clock.setVibration(1);//是否振动,1为振动，2为不震动
                         else clock.setVibration(2);
                     }
-
                     clock.setId(dataclock.getId());
                     clockManage.setClock(clock);
-                    Log.d("modifyclock",clock.toString());
+                    Log.d("modifyclock",c.getTime()+clock.toString());
                     Toast.makeText(AddAlarmActivity.this, "闹钟修改成功", Toast.LENGTH_SHORT).show();//提示用户
                     setResult(RESULT_OK, intent);
                     AddAlarmActivity.this.finish();
@@ -225,12 +231,21 @@ public class AddAlarmActivity extends Activity implements View.OnClickListener{
                         this,
                         new TimePickerDialog.OnTimeSetListener(){
                             public void onTimeSet(TimePicker timePicker, int hourOfDay,int minute) {
+//                                if(isset) {
+//                                    c.setTimeInMillis(dataclock.getTime().getTime());        //设置Calendar对象
+//                                    c.set(Calendar.HOUR_OF_DAY,dataclock.getTime().getHours());
+//                                    c.set(Calendar.MINUTE, dataclock.getTime().getMinutes());            //设置闹钟的分钟数
+//                                    c.set(Calendar.SECOND, 0);                //设置闹钟的秒数
+//                                    c.set(Calendar.MILLISECOND, 0);            //设置闹钟的毫秒数
+//                                }
+//                                else {
+                                    c.setTimeInMillis(System.currentTimeMillis());        //设置Calendar对象
+                                    c.set(Calendar.HOUR_OF_DAY, hourOfDay);        //设置闹钟小时数
+                                    c.set(Calendar.MINUTE, minute);            //设置闹钟的分钟数
+                                    c.set(Calendar.SECOND, 0);                //设置闹钟的秒数
+                                    c.set(Calendar.MILLISECOND, 0);            //设置闹钟的毫秒数
+                    //            }
 
-                                c.setTimeInMillis(System.currentTimeMillis());        //设置Calendar对象
-                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);        //设置闹钟小时数
-                                c.set(Calendar.MINUTE, minute);            //设置闹钟的分钟数
-                                c.set(Calendar.SECOND, 0);                //设置闹钟的秒数
-                                c.set(Calendar.MILLISECOND, 0);            //设置闹钟的毫秒数
                             }
                         },
                         cal.get(Calendar.HOUR_OF_DAY),

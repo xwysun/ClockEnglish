@@ -40,13 +40,13 @@ public class AlarmReceiver extends BroadcastReceiver {
 //获取数据
         Bundle bundle = intent.getExtras();
 //初始化单词
-        new Thread() {
-            @Override
-            public void run() {
-                manage = new WordManage(context);
-                wordhandler.sendEmptyMessage(0);
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                manage = new WordManage(context);
+//                wordhandler.sendEmptyMessage(0);
+//            }
+//        }.start();
 
         Intent intent2 = new Intent(context,AlarmActivity.class);
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

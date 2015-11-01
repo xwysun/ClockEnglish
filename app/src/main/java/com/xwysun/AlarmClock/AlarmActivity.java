@@ -160,8 +160,8 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
                 break;
 
         }
-      //  return super.onKeyDown(keyCode,event);
-        return false;
+        return super.onKeyDown(keyCode,event);
+ //       return false;
     }
 
     @Override
