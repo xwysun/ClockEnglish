@@ -60,7 +60,7 @@ public class RIngVUtils  {
         if(vibrator==null)
             vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
         long [] pattern = {100,500,100,500};   // 停止 开启 停止 开启
-        vibrator.vibrate(pattern,10);           //重复10次上面的pattern 如果只想震动一次，index设为-1
+        vibrator.vibrate(pattern,2);           //重复10次上面的pattern 如果只想震动一次，index设为-1
     }
     public static void cancelVibrate(){
         if(vibrator!=null)
