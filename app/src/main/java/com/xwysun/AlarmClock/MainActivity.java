@@ -64,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView learn;
     Calendar cal=Calendar.getInstance();
     private int State = 1;
-    final int DIALOG_TIME = 0;
     ClockManage clockManage;
+    SimpleDateFormat sDatedf=new SimpleDateFormat("yyyy.MM.dd");
+    SimpleDateFormat TSdf=new SimpleDateFormat("hh:mm");
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -73,14 +74,20 @@ public class MainActivity extends AppCompatActivity {
             if (msg.what==1) {
                 deleteAlarm.setVisibility(View.VISIBLE);
                 State = 0;//删除闹钟界面
-            }else if (msg.what == 3){
-//                Time.setText(time);
-//                Date.setText(date);
-//                Weekofday.setText("星期" + getWeekOfDay());
+            }else if (msg.what == RefreshTime.UPDATE_TIME){
+                RefreshTime.runFlag =false;
+                Timetv.setText(msg.obj.toString());
+
+                String date=sDatedf.format(new java.util.Date());
+                Date.setText(date);
+                Weekofday.setText("星期" + getWeekOfDay());
+                RefreshTime.runFlag = true;
             }
 
         }
     };
+    private RefreshTime refreshTime  = new RefreshTime(handler);
+
     private WordManage manage;
     private List<Question> Questions;
     public static final String QuestionsKey="questions";
@@ -113,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
 
         alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
-        SimpleDateFormat sDatedf=new SimpleDateFormat("yyyy.MM.dd");
+
         String date=sDatedf.format(new java.util.Date());
-        SimpleDateFormat TSdf=new SimpleDateFormat("hh:mm");
+
         String time=TSdf.format(new java.util.Date());
 
         collect=(ImageView)findViewById(R.id.collect);
@@ -146,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         Weekofday.setText("星期"+getWeekOfDay());
         Date = (TextView)findViewById(R.id.date);
         Date.setText(date);
-
+        refreshTime.start();
         alarmLV = (ListView)findViewById(R.id.alarmLV);
         deleteAlarm = (LinearLayout)findViewById(R.id.delete_alarm);
          adapter = new ListViewAdapter(this,handler,MainActivity.this);

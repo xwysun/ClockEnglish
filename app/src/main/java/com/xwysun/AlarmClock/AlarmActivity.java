@@ -146,22 +146,14 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-//                if (mediaPlayer != null) {
-//                    try {
-//                        mediaPlayer.stop();//停止播放
-//                        mediaPlayer.release();//释放资源
-//                        mediaPlayer = null;
-//                    }catch (Exception e){
-//                        e.printStackTrace();
-//                    }
-//                }
+                RIngVUtils.cancelVibrate();
+                RIngVUtils.stop();
                 break;
             default:
                 break;
 
         }
         return super.onKeyDown(keyCode,event);
- //       return false;
     }
 
     @Override

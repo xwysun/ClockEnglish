@@ -8,7 +8,7 @@ import java.util.Calendar;
 /**
  * Created by tornado on 2015/10/28.
  */
-public class TimeUtils {
+public class TimeUtils  {
 
     public static boolean exceedCurrentTime(long TimeMillis){
         long currentTime = System.currentTimeMillis();
@@ -32,7 +32,7 @@ public class TimeUtils {
                 Log.d("exceed",exceed+"");
                 return calendar2.getTimeInMillis()+x;
             }else
-                return calendar2.getTimeInMillis()+5*1000;
+                return calendar2.getTimeInMillis()+25*1000;
         }else
             return time.getTime();
     }

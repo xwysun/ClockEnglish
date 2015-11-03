@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xwysun" >
+    xmlns:toos="http://schemas.android.com/apk/res-auto"
+    package="com.xwysun">
 
     <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -54,7 +55,7 @@
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+
 
     <application
         android:allowBackup="true"

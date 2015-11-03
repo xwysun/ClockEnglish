@@ -25,7 +25,10 @@ import com.xwysun.wordmanage.ClockManage;
 import com.xwysun.wordmanage.model.clock.Clock;
 import com.xwysun.wordmanage.model.clock.Repeat;
 
+
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,11 +40,13 @@ public class ListViewAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Handler handler;
     private Activity activity;
-    public static Clock clock = null;
+
     private static ClockManage clockManage;
     private static Context context;
     Message msg2 = new Message();
     public static int TYPE  = 1;
+    SimpleDateFormat TSdf=new SimpleDateFormat("hh:mm");
+
     public ListViewAdapter(Context context,Handler handler,Activity activity) {
         this.inflater = LayoutInflater.from(context);
         this.clockManage = new ClockManage(context);
@@ -72,6 +77,7 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup viewGroup) {
+        Clock clock = null;
 
         ViewHolder holder = null;
 
@@ -104,13 +110,16 @@ public class ListViewAdapter extends BaseAdapter {
             }
             clock=clockManage.getClocks().get(position);
            onCheck = new OnCheck(clock,position);
-            holder.time.setText(clock.getTime().toString());
+
+            String date = TSdf.format(clock.getTime());
+            holder.time.setText(date);
             flag = false;
             if(clock.getVibration()==1||clock.getVibration()==2) {
 
                 holder.switchButton.setChecked(true);
             }
             else  holder.switchButton.setChecked(false);
+            holder.deleteCB.setChecked(false);
             flag = true;
             holder.alarm_item.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -128,11 +137,15 @@ public class ListViewAdapter extends BaseAdapter {
             holder.deleteCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    //
-                    if (isChecked) {
-                        MainActivity.deleteclockList.add(clock);
-                    } else {
-                        MainActivity.deleteclockList.remove(clock);
+                    //删除闹钟
+                    if(flag) {
+
+                        if (isChecked) {
+                            MainActivity.deleteclockList.add(clockManage.getClocks().get(position));
+
+                        } else {
+                            MainActivity.deleteclockList.remove(clockManage.getClocks().get(position));
+                        }
                     }
                 }
             });
@@ -196,7 +209,6 @@ public class ListViewAdapter extends BaseAdapter {
                     }
 
                 } else {
-                    Log.d("vibrate", isChecked + "123 ");
                     if (clockx.getVibration() == 1) {//振动
                         clockx.setVibration(10);
                         clockManage.setClock(clockx);
