@@ -45,7 +45,7 @@ public class ListViewAdapter extends BaseAdapter {
     private static Context context;
     Message msg2 = new Message();
     public static int TYPE  = 1;
-    SimpleDateFormat TSdf=new SimpleDateFormat("hh:mm");
+    SimpleDateFormat TSdf=new SimpleDateFormat("HH:mm");
 
     public ListViewAdapter(Context context,Handler handler,Activity activity) {
         this.inflater = LayoutInflater.from(context);
@@ -198,7 +198,7 @@ public class ListViewAdapter extends BaseAdapter {
                     bundle.putString("remark",clockx.getRemark());
                     bundle.putSerializable("ring", clockx.getRing());
                     intent.putExtras(bundle);
-                    PendingIntent pi = PendingIntent.getBroadcast(context,position,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pi = PendingIntent.getBroadcast(context,position+1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                     if (clockx.getRepeat() == Repeat.ONLY_ONE){
                         alarmManager.set(AlarmManager.RTC_WAKEUP, TimeUtils.changeTime(clockx.getTime()), pi);        //设置闹钟
@@ -216,11 +216,12 @@ public class ListViewAdapter extends BaseAdapter {
                         clockx.setVibration(20);
                         clockManage.setClock(clockx);
                     }
-                    PendingIntent pi = PendingIntent.getBroadcast(context,position,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pi = PendingIntent.getBroadcast(context,position+1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
                     //取消闹钟
                     alarmManager.cancel(pi);
+                    Log.d("cancel",position+"");
                 }
             }
         }

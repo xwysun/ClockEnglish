@@ -246,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
             if(clockManage==null){
                 clockManage = new ClockManage(MainActivity.this);
             }
+            Log.d("build", clockManage.getClocks().size()+"");
             PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this,
                     clockManage.getClocks().size(), intent,PendingIntent.FLAG_UPDATE_CURRENT);    //创建PendingIntent
             if (RepeatDetail == Repeat.ONLY_ONE){
